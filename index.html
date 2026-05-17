@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Moving Heart</title>
+
+<style>
+body{
+  margin:0;
+  background:black;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+#heart{
+  position:relative;
+  width:500px;
+  height:500px;
+}
+
+.word{
+  position:absolute;
+  color:#ff9ad5;
+  font-size:20px;
+  font-family:Arial;
+  white-space:nowrap;
+  text-shadow:0 0 10px white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="heart"></div>
+
+<script>
+const heart = document.getElementById("heart");
+
+const words = [];
+
+for(let t = 0; t < 360; t += 4){
+
+  const span = document.createElement("span");
+
+  span.className = "word";
+
+  span.innerText = "luvvv uhh chuu";
+
+  heart.appendChild(span);
+
+  words.push({
+    el: span,
+    angle: t
+  });
+}
+
+function animate(){
+
+  words.forEach(word => {
+
+    word.angle += 0.8;
+
+    let rad = word.angle * Math.PI / 180;
+
+    let x =
+      16 * Math.pow(Math.sin(rad),3);
+
+    let y =
+      13 * Math.cos(rad)
+      - 5 * Math.cos(2 * rad)
+      - 2 * Math.cos(3 * rad)
+      - Math.cos(4 * rad);
+
+    word.el.style.left = (x * 16 + 200) + "px";
+
+    word.el.style.top = (-y * 16 + 200) + "px";
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
